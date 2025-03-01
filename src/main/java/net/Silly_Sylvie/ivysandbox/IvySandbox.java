@@ -1,8 +1,9 @@
 package net.Silly_Sylvie.ivysandbox;
 
 import com.mojang.logging.LogUtils;
-import net.Silly_Sylvie.ivysandbox.items.ModItems;
-import net.minecraft.world.item.CreativeModeTab;
+import net.Silly_Sylvie.ivysandbox.block.ModBlocks;
+import net.Silly_Sylvie.ivysandbox.items.ModCreativeModeTabs;
+import net.Silly_Sylvie.ivysandbox.items.custom.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -20,19 +21,23 @@ import org.slf4j.Logger;
 @Mod(IvySandbox.MOD_ID)
 public class IvySandbox {
     // Define mod id in a common place for everything to reference
-    public static final String MOD_ID = "ivysandboxtest";
+    public static final String MOD_ID = "ivysandbox";
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public IvySandbox() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        ModCreativeModeTabs.register(modEventBus);
+
         ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+        modEventBus.addListener(this::addCreative);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -41,8 +46,11 @@ public class IvySandbox {
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+        if(event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
             event.accept(ModItems.ORANGE);
+        }
+        if(event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
+            event.accept(ModBlocks.GRASS_SLAB);
         }
     }
 

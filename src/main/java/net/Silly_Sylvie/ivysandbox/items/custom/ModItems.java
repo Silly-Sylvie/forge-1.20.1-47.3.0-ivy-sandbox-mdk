@@ -1,4 +1,4 @@
-package net.Silly_Sylvie.ivysandbox.items;
+package net.Silly_Sylvie.ivysandbox.items.custom;
 
 import net.Silly_Sylvie.ivysandbox.IvySandbox;
 import net.minecraft.world.item.Item;
@@ -12,7 +12,7 @@ public class ModItems {
             DeferredRegister.create(ForgeRegistries.ITEMS, IvySandbox.MOD_ID);
 
     public static final RegistryObject<Item> ORANGE = ITEMS.register("orange",
-            () -> new Item(new Item.Properties()));
+            () -> new Item(new Item.Properties().food(ModFoods.ORANGE)));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

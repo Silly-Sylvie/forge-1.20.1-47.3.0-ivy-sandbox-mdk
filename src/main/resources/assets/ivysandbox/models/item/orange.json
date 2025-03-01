@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "ivysandboxtest:item:orange"
+    "layer0": "ivysandbox:item/orange"
   }
 }
