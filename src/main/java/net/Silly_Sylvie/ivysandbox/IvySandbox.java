@@ -1,6 +1,9 @@
 package net.Silly_Sylvie.ivysandbox;
 
 import com.mojang.logging.LogUtils;
+import net.Silly_Sylvie.ivysandbox.items.ModItems;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -24,6 +27,8 @@ public class IvySandbox {
     public IvySandbox() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        ModItems.register(modEventBus);
+
         modEventBus.addListener(this::commonSetup);
 
         // Register ourselves for server and other game events we are interested in
@@ -36,7 +41,9 @@ public class IvySandbox {
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-
+        if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+            event.accept(ModItems.ORANGE);
+        }
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
